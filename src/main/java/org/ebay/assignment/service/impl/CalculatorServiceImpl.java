@@ -1,5 +1,6 @@
 package org.ebay.assignment.service.impl;
 
+import lombok.extern.slf4j.Slf4j;
 import org.ebay.assignment.model.CalculationStep;
 import org.ebay.assignment.model.Operation;
 import org.ebay.assignment.service.CalculatorService;
@@ -13,6 +14,7 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class CalculatorServiceImpl implements CalculatorService {
 
@@ -29,6 +31,8 @@ public class CalculatorServiceImpl implements CalculatorService {
     public BigDecimal calculate(Operation operation, BigDecimal a, BigDecimal b, MathContext context) {
         OperationStrategy strategy = operationStrategies.get(operation);
         if (strategy == null) {
+            log.error("CalculatorService: Error during calculate: operation={}, operand1={}, operand2={}, reason={}", operation, a,
+                    b, "unsupported operation");
             throw new UnsupportedOperationException("Unsupported operation: " + operation);
         }
         return strategy.apply(a, b, context);
@@ -39,6 +43,8 @@ public class CalculatorServiceImpl implements CalculatorService {
         for (CalculationStep step : steps) {
             OperationStrategy strategy = operationStrategies.get(step.operation());
             if (strategy == null) {
+                log.error("CalculatorService: Error during chain: initialValue={}, steps={}, reason={}", initialValue, steps,
+                         "unsupported operation");
                 throw new UnsupportedOperationException("Unsupported operation in chain: " + step.operation());
             }
             result = strategy.apply(result, step.operand(), context);
