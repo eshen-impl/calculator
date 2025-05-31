@@ -12,8 +12,6 @@ This project is a Spring Boot-based flexible calculator that supports basic arit
 - Unit tested with edge case coverage
 - Compatible with IoC/DI frameworks (Spring Boot)
 
----
-
 ## API Endpoints
 
 ### 1. Basic Calculation
@@ -33,7 +31,7 @@ POST /api/v1/calculator/calculate
 ### 2. Chained Calculation
 
 
-POST /api/v1/calculator/calculate/chain
+POST /api/v1/calculator/chain
 
 
 #### Request Body (sample case):
