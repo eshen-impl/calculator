@@ -17,7 +17,7 @@ This project is a Spring Boot-based flexible calculator that supports basic arit
 ### 1. Basic Calculation
 POST /api/v1/calculator/calculate
 
-#### Request Parameters (sample case):
+#### Request Body (sample case):
 ```json
 {
   "operation": "ADD",
@@ -38,7 +38,7 @@ POST /api/v1/calculator/chain
 
 ```json
 {
-  "initialValue": 5,
+  "initial": 5,
   "steps": [
     { "operation": "ADD", "operand": 3 },
     { "operation": "MULTIPLY", "operand": 2 }
